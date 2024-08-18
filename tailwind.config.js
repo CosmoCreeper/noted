@@ -6,7 +6,7 @@ module.exports = {
   theme: {
     extend: {},
     fontFamily: {
-      'body': 'Arial',
+      'body': 'Roboto',
       'header': ["Franklin Gothic Medium", "Arial Narrow", 'Arial', 'sans-serif'],
     },
   },

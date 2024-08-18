@@ -25,13 +25,6 @@
     "email": "realemail@randomapps.com",
     "url": "https://randomapps.com"
   },
-  "contributors": [
-    {
-      "name": "Amila Welihinda",
-      "email": "amilajack@gmail.com",
-      "url": "https://github.com/amilajack"
-    }
-  ],
   "main": "./src/main/main.ts",
   "scripts": {
     "build": "concurrently \"npm run build:main\" \"npm run build:renderer\"",
@@ -96,16 +89,20 @@
     }
   },
   "dependencies": {
+    "@tsparticles/confetti": "^3.4.0",
+    "@tsparticles/engine": "^3.4.0",
+    "@tsparticles/react": "^3.0.0",
+    "@uidotdev/usehooks": "^2.4.1",
     "autoprefixer": "^10.4.17",
     "electron-debug": "^3.2.0",
     "electron-log": "^4.4.8",
     "electron-updater": "^6.1.4",
     "postcss": "^8.4.35",
     "postcss-loader": "^8.1.0",
-    "rc-progress": "^3.5.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "react-router-dom": "^6.16.0"
+    "react-router-dom": "^6.16.0",
+    "timedated": "0.0.7"
   },
   "devDependencies": {
     "@electron/notarize": "^2.1.0",
@@ -176,8 +173,8 @@
     "webpack-merge": "^5.9.0"
   },
   "build": {
-    "productName": "ElectronReact",
-    "appId": "org.erb.ElectronReact",
+    "productName": "Noted",
+    "appId": "org.solomon.noted",
     "asar": true,
     "asarUnpack": "**\\*.{node,dll}",
     "files": [

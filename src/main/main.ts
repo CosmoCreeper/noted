@@ -10,20 +10,16 @@
  */
 import path from 'path';
 import { app, BrowserWindow, shell, ipcMain } from 'electron';
-import { autoUpdater } from 'electron-updater';
-import log from 'electron-log';
 import MenuBuilder from './menu';
 import { resolveHtmlPath } from './util';
 
-class AppUpdater {
-  constructor() {
-    log.transports.file.level = 'info';
-    autoUpdater.logger = log;
-    autoUpdater.checkForUpdatesAndNotify();
-  }
-}
-
 let mainWindow: BrowserWindow | null = null;
+
+ipcMain.on('updateboot', (bootOnStartup) => {
+  app.setLoginItemSettings({
+    openAtLogin: bootOnStartup ? true : false
+  });
+});
 
 ipcMain.on('ipc-example', async (event, arg) => {
   const msgTemplate = (pingPong: string) => `IPC test: ${pingPong}`;
@@ -74,6 +70,8 @@ const createWindow = async () => {
     frame: false,
     width: 1024,
     height: 728,
+    minWidth: 250,
+    minHeight: 250,
     icon: getAssetPath('icon.ico'),
     webPreferences: {
       preload: app.isPackaged
@@ -92,6 +90,7 @@ const createWindow = async () => {
       mainWindow.minimize();
     } else {
       mainWindow.show();
+      mainWindow.focus();
     }
   });
 
@@ -107,10 +106,6 @@ const createWindow = async () => {
     shell.openExternal(edata.url);
     return { action: 'deny' };
   });
-
-  // Remove this if your app does not use auto updates
-  // eslint-disable-next-line
-  new AppUpdater();
 };
 
 /**
