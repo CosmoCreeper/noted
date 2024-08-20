@@ -47,29 +47,28 @@ const Header = forwardRef<HTMLDivElement, {onColorChange: () => void}>(({onColor
   };
 
   return (
-    <header id="header" ref={ref}>
+    <header className="fixed font-header text-xl flex h-10 w-full items-center justify-center z-[2] top-0" ref={ref}>
       <div 
-       className="fixed top-0 left-0 pl-2.5 pt-[10px] bg-ui size-10 hover:shadow-inner hover:cursor-pointer duration-200" 
-       onClick={onColorChange}>
+       className="fixed top-1 left-1 pl-2.5 pt-[10px] bg-ui size-8 hover:cursor-pointer duration-200 btn rounded-[5px]" 
+       onClick={onColorChange} id="color-con">
         <div 
-         className="transition hover:opacity-80 size-5 rounded-[30px] border-[1.5px] hover:!border-slate-600"
+         className="transition hover:opacity-80 size-5 rounded-[30px] border-[1.5px] hover:!border-slate-700 fixed top-[10px] left-[10px] bg-white border-slate-300"
          id="color-btn"></div>
       </div>
       <div id="day" 
-       className="select-none hover:cursor-pointer w-32 h-10 fixed pt-1.5 pl-7 bg-ui transition duration-500 hover:!text-slate-700 hover:shadow-inner" 
+       className="select-none hover:cursor-pointer w-32 h-8 leading-5 fixed pt-1.5 pl-7 bg-ui transition duration-500 hover:!text-slate-700 btn rounded-[5px]" 
        onClick={settings}>{getWeekDay(2)}</div>
       <div 
-       className="hover:cursor-pointer hover:!text-slate-500 bg-ui fixed right-0 top-0 size-10 pt-[5px] pl-2.5 hover:shadow-inner duration-200 !border-0 text-2xl"
+       className="hover:cursor-pointer hover:!text-slate-700 bg-ui fixed right-1 top-1 size-8 pl-[6.5px] pt-[5px] duration-200 text-2xl btn leading-[22px] rounded-[5px] !border-none"
        id="close-btn" onClick={quitApp}>&#x2715;</div>
     </header>
   );
 });
 
 const CHANGELOG = [
-  "Redesigned version button.",
-  "Scrollbar indicator.",
-  "Hover effects for menu.",
-  "Faster resizing by overclocking speeds.",
+  "Redesigned menu.",
+  "Optimized resizing.",
+  "Cleaned up CSS files.",
   "Minor changes."
 ];
 
@@ -100,37 +99,37 @@ const Settings = ({
   }, [bootOnStartup]);
 
   return (
-    <div id="settings">
+    <div className="text-center select-none">
       <h3 className="settings-header">Options</h3>
-      <div id="bootcon" className="setting noteText">
+      <div id="bootcon" className="setting">
         <input type="checkbox" checked={bootOnStartup} onChange={() => setBootOnStartup(!bootOnStartup)} />
         <label id="boottext" className="labelClass">Boot on Startup</label>
       </div>
-      <div id="dayresetcon" className="setting noteText">
+      <div id="dayresetcon" className="setting">
         <input type="checkbox" checked={dayReset} onChange={() => setDayReset(!dayReset)} />
         <label id="dayresettext" className="labelClass" key="resett">Reset tasks daily.</label>
       </div>
-      <div className="setting noteText" id="checksoundcon">
+      <div className="setting" id="checksoundcon">
         <input type="checkbox" checked={soundEnabled} onChange={() => setSoundEnabled(!soundEnabled)} />
         <label className="labelClass">Sound</label>
-        <select value={sound} onChange={(e) => setSound(e.target.value)} className="ml-1 mr-1 h-[22px]">
+        <select value={sound} onChange={(e) => setSound(e.target.value)} className="ml-1 mr-1 h-[22px] rounded-[5px] focus:outline">
           {SOUNDS.map(value => <option value={value} key={value}>{value}</option>)}
         </select>
         <input type="text" 
-          className={`${sound === "Custom" ? "" : "hidden"} h-[22px] text-xs ml-0.5 mb-0.5 w-[21%] pl-1 outline-none`}
+          className={`${sound === "Custom" ? "" : "hidden"} h-[22px] text-xs ml-0.5 mb-0.5 w-[21%] pl-1 focus:outline rounded-[5px]`}
           value={customSound} onChange={(e) => setCustomSound(e.target.value)} spellCheck="false" />
       </div>
-      <div className="setting noteText" id="confetticon">
+      <div className="setting" id="confetticon">
         <input type="checkbox" checked={confettiEnabled} onChange={() => setConfettiEnabled(!confettiEnabled)} />
         <label className="labelClass">Confetti</label>
       </div>
-      <div className="setting noteText" id="outlinecon">
+      <div className="setting" id="outlinecon">
         <input type="checkbox" checked={textOutline} onChange={() => setTextOutline(!textOutline)} />
         <label className="labelClass">Text Outline</label>
       </div>
       <Changes />
-      <div className="vcon pb-2">
-        <div className="ui pt-0.5 w-[155px] px-1 rounded-t-[7px] rounded-r-[7px] z-[2] border-[1px] shadow-lg border-slate-400 !text-black">
+      <div className="fixed flex justify-center w-full m-0 bottom-0">
+        <div className="ui pt-0.5 w-[140px] px-1 rounded-t-[5px] z-[2] !text-black shadow-[rgba(100,100,111,0.2)_0px_7px_29px_0px]">
           <strong>Version:</strong> 1.3.1
         </div>
       </div>
@@ -246,15 +245,15 @@ const InputField = memo(({ effects, idx, task, tasks, setTasks, textOutline }: {
 
   return (
     <div className={`flex ${textOutline ? 'items-center' : 'pt-1'} text-[15px]`}>
-      <input type="checkbox" checked={task.done} className="w-[14px]" onChange={(e) => {
+      <input type="checkbox" checked={task.done} onChange={(e) => {
         effects(e, idx);
       }} />
       <textarea
         ref={textareaRef}
-        className={`labelClass transition rounded ` +
+        className={`outline-none bg-transparent resize-none ml-[7px] inline font-normal break-words transition w-full ` +
                    `${textOutline ? 
                     'hover:border-opacity-20 min-h-8 focus:border-black focus:border-opacity-20 border-opacity-20 border-transparent hover:border-gray-500 border-2 p-1'
-                     : 'border-none'}` + `${task.done ? ' line-through italic' : ''}`}
+                     : 'border-none leading-5 mt-px'}` + `${task.done ? ' line-through italic' : ''}`}
         rows={1}
         onChange={(e) => handleOnChange(e.target, idx)}
         onKeyDown={(e) => handleTaskInput(e, idx)}
@@ -402,25 +401,15 @@ const Content = (
     window.resizeTo(width, height);
   };
 
-  const isScrollable = () => {
-    return document.documentElement.clientHeight + window.scrollY <
-     (document.documentElement.scrollHeight ||
-      document.documentElement.clientHeight);
-  };
-
   return (
-    <div id="content" ref={contentRef}>
+    <div className="px-[5px] pt-[5px] pb-3" ref={contentRef}>
       <ul className="mt-2">
         {tasks.map((task, idx) => {
           return <InputField effects={effects} idx={idx} task={task} tasks={tasks} setTasks={setTasks} textOutline={textOutline} key={idx} />;
         })}
       </ul>
-      <div className={`fixed w-5 h-20 ui right-2 top-[42%] rounded-md text-2xl select-none drop-shadow-xl ${isScrollable() ? '' : 'hidden'}`}>
-        <div className="h-6 ml-1 mt-1">&#8593;</div>
-        <div className="h-6 ml-1 mt-[14px]">&#8595;</div>
-      </div>
       <div className="flex w-full">
-        <div className="resizer" onDoubleClick={handleResizer}></div>
+        <div className="resizer bottom-[-32px] right-[-32px] size-14 z-[2] fixed rotate-45 transition-shadow duration-[400ms]" onDoubleClick={handleResizer}></div>
       </div>
     </div>
   );
@@ -450,10 +439,8 @@ const Main = () => {
       }
     }, 1000);
     window.addEventListener("resize", () => {
-      setTimeout(() => {
-        setWindowSize([window.outerWidth, window.outerHeight]);
-        setPosition(position);
-      }, 100);
+      setWindowSize([window.outerWidth, window.outerHeight]);
+      setPosition(position);
     });
   }, []);
 
@@ -466,9 +453,9 @@ const Main = () => {
   }, [setCurrColorIdx]);
 
   return (
-    <div id="react-body" className={COLORS[currColorIdx]}>
+    <div id="react-body" className={`${COLORS[currColorIdx]} font-body mr-0 min-h-full min-w-full absolute`}>
       <div id="main-content">
-        <div className="separator"></div>
+        <div className="h-10 w-full"></div>
         <HashRouter>
           <Header onColorChange={() => handleColorChange(currColorIdx)} ref={headerRef} />
           <Routes>

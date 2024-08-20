@@ -4,7 +4,6 @@
 
 /* Improperly added themes. */
 .light-green,
-.pink #color-btn,
 .light-green .bg-ui:hover {
   @apply !bg-[#e8ffc7] text-black;
 }
@@ -26,7 +25,6 @@
 
 /* Purple */
 .purple,
-.light-green #color-btn,
 .purple .bg-ui:hover {
   @apply !bg-[#eac7ff] text-black;
 }
@@ -48,7 +46,6 @@
 
 /* Orange */
 .orange,
-.purple #color-btn,
 .orange .bg-ui:hover {
   @apply !bg-[#ffdbc7] text-black;
 }
@@ -70,7 +67,6 @@
 
 /* Light Blue */
 .light-blue,
-.orange #color-btn,
 .light-blue .bg-ui:hover {
   @apply !bg-[#c7f4ff] text-black;
 }
@@ -92,7 +88,6 @@
 
 /* Pink */
 .pink,
-.light-blue #color-btn,
 .pink .bg-ui:hover {
   @apply !bg-[#f2c7ff] text-black;
 }
