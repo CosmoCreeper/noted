@@ -56,8 +56,10 @@ const Header = forwardRef<HTMLDivElement, {onColorChange: () => void}>(({onColor
          id="color-btn"></div>
       </div>
       <div id="day" 
-       className="select-none hover:cursor-pointer w-32 h-8 leading-5 fixed pt-1.5 pl-7 bg-ui transition duration-500 hover:!text-slate-700 btn rounded-[5px]" 
-       onClick={settings}>{getWeekDay(2)}</div>
+       className="select-none hover:cursor-pointer w-32 h-8 leading-5 pt-1.5 pl-7 bg-ui transition duration-500 hover:!text-slate-700 btn rounded-[5px]" 
+       onClick={settings}>
+        <div className="fixed top-[10px] left-[50%] -translate-x-[50%] !duration-75">{getWeekDay(2)}</div>
+      </div>
       <div 
        className="hover:cursor-pointer hover:!text-slate-700 bg-ui fixed right-1 top-1 size-8 pl-[6.5px] pt-[5px] duration-200 text-2xl btn leading-[22px] rounded-[5px] !border-none"
        id="close-btn" onClick={quitApp}>&#x2715;</div>
