@@ -1,0 +1,79 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Improperly added themes. */
+
+/* Yellow */
+.yellow,
+.yellow .bg-ui:hover {
+  @apply !bg-[#fff7d1];
+}
+
+.yellow header,
+.yellow .ui {
+  @apply bg-[#fff2ab];
+}
+
+.yellow, .yellow .bg-ui:hover {
+  @apply text-black;
+}
+
+/* Green */
+.green,
+.green .bg-ui:hover {
+  @apply !bg-[#e4f9e0];
+}
+
+.green header,
+.green .ui {
+  @apply bg-[#cbf1c4];
+}
+
+/* Pink */
+.pink,
+.pink .bg-ui:hover {
+  @apply !bg-[#ffe4f1];
+}
+
+.pink header,
+.pink .ui {
+  @apply bg-[#ffcce5];
+}
+
+/* Purple */
+.purple,
+.purple .bg-ui:hover {
+  @apply !bg-[#f2e6ff] ;
+}
+
+.purple header,
+.purple .ui {
+  @apply bg-[#e7cfff];
+}
+
+/* Blue */
+.blue,
+.blue .bg-ui:hover {
+  @apply !bg-[#e2f1ff];
+}
+
+.blue header,
+.blue .ui {
+  @apply bg-[#cde9ff];
+}
+
+
+.header {
+  @apply text-[#696969];
+}
+
+.resizer,
+#close-btn,
+#color-btn {
+  @apply border-l-[1px] border-l-[#989898] text-[#989898] border-[#989898];
+}
+
+.resizer:hover {
+  @apply shadow-[-5px_0px_15px_#989898];
+}
