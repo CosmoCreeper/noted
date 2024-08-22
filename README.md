@@ -15,5 +15,6 @@ A to-do list solution built with React and Electron. Designed with customization
 - Redesigned custom sounds system to be user-friendly.
 - And more...
 
+###### Data will be saved when transferring between versions.
 __________________________\
 **Latest version:** v1.3.1
