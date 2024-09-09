@@ -68,10 +68,8 @@ const Header = forwardRef<HTMLDivElement, {onColorChange: () => void}>(({onColor
 });
 
 const CHANGELOG = [
-  "Redesigned menu.",
-  "Optimized resizing.",
-  "Cleaned up CSS files.",
-  "Minor changes."
+  "Fixed text outline rounded corners.",
+  "Added directory button for custom sounds folder."
 ];
 
 const Changes = () => {
@@ -97,8 +95,11 @@ const Settings = ({
 
   useEffect(() => {
     window.electron.ipcRenderer.sendMessage("updateboot", bootOnStartup);
-    console.log(bootOnStartup);
   }, [bootOnStartup]);
+
+  const openFolder = () => {
+    window.electron.ipcRenderer.sendMessage("openfolder");
+  };
 
   return (
     <div className="text-center select-none">
@@ -120,6 +121,12 @@ const Settings = ({
         <input type="text" 
           className={`${sound === "Custom" ? "" : "hidden"} h-[22px] text-xs ml-0.5 mb-0.5 w-[21%] pl-1 focus:outline rounded-[5px]`}
           value={customSound} onChange={(e) => setCustomSound(e.target.value)} spellCheck="false" />
+        <a className={`${sound === "Custom" ? "" : "hidden"} ml-1 mt-[2px]`} onClick={() => openFolder()}>
+          <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor" viewBox="0 0 16 16">
+            <path d="M11 6.64a1 1 0 0 0-1.243-.97l-1 .25A1 1 0 0 0 8 6.89v4.306A2.6 2.6 0 0 0 7 11c-.5 0-.974.134-1.338.377-.36.24-.662.628-.662 1.123s.301.883.662 1.123c.364.243.839.377 1.338.377s.974-.134 1.338-.377c.36-.24.662-.628.662-1.123V8.89l2-.5z"/>
+            <path d="M14 14V4.5L9.5 0H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2M9.5 3A1.5 1.5 0 0 0 11 4.5h2V14a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h5.5z"/>
+          </svg>
+        </a>
       </div>
       <div className="setting" id="confetticon">
         <input type="checkbox" checked={confettiEnabled} onChange={() => setConfettiEnabled(!confettiEnabled)} />
@@ -252,10 +259,10 @@ const InputField = memo(({ effects, idx, task, tasks, setTasks, textOutline }: {
       }} />
       <textarea
         ref={textareaRef}
-        className={`outline-none bg-transparent resize-none ml-[7px] inline font-normal break-words transition w-full ` +
+        className={`outline-none bg-transparent resize-none ml-[7px] inline font-normal break-words transition w-full ${task.done ? ' line-through italic' : ''} ` +
                    `${textOutline ? 
-                    'hover:border-opacity-20 min-h-8 focus:border-black focus:border-opacity-20 border-opacity-20 border-transparent hover:border-gray-500 border-2 p-1'
-                     : 'border-none leading-5 mt-px'}` + `${task.done ? ' line-through italic' : ''}`}
+                    'hover:border-opacity-20 min-h-8 focus:border-black focus:border-opacity-20 border-opacity-20 border-transparent hover:border-gray-500 border-2 p-1 rounded-[5px]'
+                     : 'border-none leading-5 mt-px'}`}
         rows={1}
         onChange={(e) => handleOnChange(e.target, idx)}
         onKeyDown={(e) => handleTaskInput(e, idx)}
@@ -303,7 +310,7 @@ const Content = (
       
       // Define sound to be played with its src.
       try {
-        let path = require(`./assets/sounds/${soundPreset}/${sound === "Custom" ? `${customSound}/` : ""}${eventType}.mp3`).default;
+        let path = require(`../../assets/sounds/${soundPreset}/${sound === "Custom" ? `${customSound}/` : ""}${eventType}.mp3`).default;
         new Audio(path).play();
       } catch (err) {
         console.log("Audio not found.");

@@ -9,9 +9,10 @@
  * `./src/main.js` using webpack. This gives us some performance wins.
  */
 import path from 'path';
-import { app, BrowserWindow, shell, ipcMain } from 'electron';
+import { app, BrowserWindow, shell, ipcMain, IpcMainEvent } from 'electron';
 import MenuBuilder from './menu';
 import { resolveHtmlPath } from './util';
+import * as os from 'os';
 
 let mainWindow: BrowserWindow | null = null;
 
@@ -19,6 +20,10 @@ ipcMain.on('updateboot', (bootOnStartup) => {
   app.setLoginItemSettings({
     openAtLogin: bootOnStartup ? true : false
   });
+});
+
+ipcMain.on('openfolder', () => {
+  shell.openPath(`${os.homedir()}\\AppData\\Local\\Programs\\noted\\resources\\assets\\sounds\\custom`);
 });
 
 ipcMain.on('ipc-example', async (event, arg) => {
