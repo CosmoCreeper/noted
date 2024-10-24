@@ -148,7 +148,7 @@ const Settings = ({
       <Changes />
       <div className="fixed flex justify-center w-full m-0 bottom-0">
         <div className="ui pt-0.5 w-[140px] px-1 rounded-t-[5px] z-[2] !text-black shadow-[rgba(100,100,111,0.2)_0px_7px_29px_0px]">
-          <strong>Version:</strong> 1.3.3-b
+          <strong>Version:</strong> 1.3.3b
         </div>
       </div>
     </div>
