@@ -34,7 +34,7 @@ type ContentProps = {
 };
 
 const Header = forwardRef<HTMLDivElement, {onColorChange: () => void}>(({onColorChange}, ref) => {
-  const [ toggleSettings, setToggleSettings ] = useState(false);
+  const [toggleSettings, setToggleSettings] = useState(false);
   const navigate = useNavigate();
 
   const quitApp = () => {
@@ -55,8 +55,11 @@ const Header = forwardRef<HTMLDivElement, {onColorChange: () => void}>(({onColor
          className="transition hover:opacity-80 size-5 rounded-[30px] border-[1.5px] hover:!border-slate-700 fixed top-[10px] left-[10px] bg-white border-slate-300"
          id="color-btn"></div>
       </div>
+      <div className={`${'hidden'}`}>
+
+      </div>
       <div id="day" 
-       className="font-bold hover:font-extrabold select-none hover:cursor-pointer w-32 h-8 leading-5 pt-1.5 pl-7 bg-ui transition duration-500 hover:!text-slate-700 btn rounded-[5px]" 
+       className="font-bold hover:font-extrabold select-none hover:cursor-pointer w-32 h-8 leading-5 pt-1.5 pl-7 bg-ui transition duration-500 text-slate-700 hover:!text-slate-800 btn rounded-[5px]" 
        onClick={settings}>
         <div className="fixed top-[10px] left-[50%] -translate-x-[50%]">{getWeekDay(2)}</div>
       </div>
@@ -159,7 +162,7 @@ const InputField = memo(({ effects, idx, task, tasks, setTasks, textOutline }: {
     setTasks: (arg0: Task[]) => void,
     textOutline: boolean,
   }) => {
-  const [newInputIdx, setNewInputIdx] = useLocalStorage("newinputidx", -1);
+  const [newInputIdx, setNewInputIdx] = useLocalStorage("new-input-idx", -1);
   const [rerender, setRerender] = useState(false);
   const textareaRef = useRef<HTMLTextAreaElement>(null);
   const mirrorRef = useRef<HTMLDivElement>(null);
@@ -432,7 +435,7 @@ const Content = (
   );
 };
 
-const COLORS = ['light-green', 'purple', 'orange', 'light-blue', 'pink'];
+const COLORS = ['yellow', 'green', 'pink', 'purple', 'blue'];
 
 const Main = () => {
   const [dayReset, setDayReset] = useLocalStorage("dayreset", true);

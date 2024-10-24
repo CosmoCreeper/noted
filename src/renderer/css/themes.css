@@ -3,106 +3,72 @@
 @tailwind utilities;
 
 /* Improperly added themes. */
-.light-green,
-.light-green .bg-ui:hover {
-  @apply !bg-[#e8ffc7] text-black;
+
+/* Yellow */
+.yellow,
+.yellow .bg-ui:hover {
+  @apply !bg-[#fff7d1];
 }
 
-.light-green header,
-.light-green .ui {
-  @apply bg-[#c3fa77] text-[#6b8d3b];
+.yellow header,
+.yellow .ui {
+  @apply bg-[#fff2ab];
 }
 
-.light-green .resizer,
-.light-green #close-btn,
-.light-green #color-btn {
-  @apply border-l-[1px] border-l-[#7f9660] text-[#7f9660] border-[#7f9660];
+.yellow, .yellow .bg-ui:hover {
+  @apply text-black;
 }
 
-.light-green .resizer:hover {
-  @apply shadow-[-5px_0px_15px_#7f9660];
+/* Green */
+.green,
+.green .bg-ui:hover {
+  @apply !bg-[#e4f9e0];
 }
 
-/* Purple */
-.purple,
-.purple .bg-ui:hover {
-  @apply !bg-[#eac7ff] text-black;
-}
-
-.purple header,
-.purple .ui {
-  @apply bg-[#b477fa] text-[#6c3b8d];
-}
-
-.purple .resizer,
-.purple #close-btn,
-.purple #color-btn {
-  @apply border-l-[1px] border-l-[#736096] text-[#736096] border-[#736096];
-}
-
-.purple .resizer:hover {
-  @apply shadow-[-5px_0px_15px_#736096];
-}
-
-/* Orange */
-.orange,
-.orange .bg-ui:hover {
-  @apply !bg-[#ffdbc7] text-black;
-}
-
-.orange header,
-.orange .ui {
-  @apply bg-[#fac677] text-[#8d6c3b];
-}
-
-.orange .resizer,
-.orange #close-btn,
-.orange #color-btn {
-  @apply border-l-[1px] border-l-[#968060] text-[#968060] border-[#968060];
-}
-
-.orange .resizer:hover {
-  @apply shadow-[-5px_0px_15px_#968060];
-}
-
-/* Light Blue */
-.light-blue,
-.light-blue .bg-ui:hover {
-  @apply !bg-[#c7f4ff] text-black;
-}
-
-.light-blue header,
-.light-blue .ui {
-  @apply bg-[#77faf3] text-[#3b8d86];
-}
-
-.light-blue .resizer,
-.light-blue #close-btn,
-.light-blue #color-btn {
-  @apply border-l-[1px] border-l-[#609296] text-[#609296] border-[#609296];
-}
-
-.light-blue .resizer:hover {
-  @apply shadow-[-5px_0px_15px_#609296];
+.green header,
+.green .ui {
+  @apply bg-[#cbf1c4];
 }
 
 /* Pink */
 .pink,
 .pink .bg-ui:hover {
-  @apply !bg-[#f2c7ff] text-black;
+  @apply !bg-[#ffe4f1];
 }
 
 .pink header,
 .pink .ui {
-  @apply bg-[#eb77fa] text-[#8d3b8d];
+  @apply bg-[#ffcce5];
 }
 
-.pink .resizer,
-.pink #close-btn,
-.pink #color-btn {
-  @apply border-l-[1px] border-l-[#966093] text-[#966093] border-[#966093];
+/* Purple */
+.purple,
+.purple .bg-ui:hover {
+  @apply !bg-[#f2e6ff] ;
 }
 
-.pink .resizer:hover {
-  @apply shadow-[-5px_0px_15px_#966093];
+.purple header,
+.purple .ui {
+  @apply bg-[#e7cfff];
+}
+
+/* Blue */
+.blue,
+.blue .bg-ui:hover {
+  @apply !bg-[#e2f1ff];
+}
+
+.blue header,
+.blue .ui {
+  @apply bg-[#cde9ff];
+}
+
+.resizer,
+#close-btn,
+#color-btn {
+  @apply border-l-[1px] border-l-[#989898] text-[#989898] border-[#989898];
+}
+
+.resizer:hover {
+  @apply shadow-[-5px_0px_15px_#989898];
 }
