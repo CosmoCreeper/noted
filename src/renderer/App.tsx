@@ -56,9 +56,9 @@ const Header = forwardRef<HTMLDivElement, {onColorChange: () => void}>(({onColor
          id="color-btn"></div>
       </div>
       <div id="day" 
-       className="select-none hover:cursor-pointer w-32 h-8 leading-5 pt-1.5 pl-7 bg-ui transition duration-500 hover:!text-slate-700 btn rounded-[5px]" 
+       className="font-bold hover:font-extrabold select-none hover:cursor-pointer w-32 h-8 leading-5 pt-1.5 pl-7 bg-ui transition duration-500 hover:!text-slate-700 btn rounded-[5px]" 
        onClick={settings}>
-        <div className="fixed top-[10px] left-[50%] -translate-x-[50%] !duration-75">{getWeekDay(2)}</div>
+        <div className="fixed top-[10px] left-[50%] -translate-x-[50%]">{getWeekDay(2)}</div>
       </div>
       <div 
        className="hover:cursor-pointer hover:!text-slate-700 bg-ui fixed right-1 top-1 size-8 pl-[6.5px] pt-[5px] duration-200 text-2xl btn leading-[22px] rounded-[5px] !border-none"
@@ -114,7 +114,7 @@ const Settings = ({
       </div>
       <div className="setting" id="checksoundcon">
         <input type="checkbox" checked={soundEnabled} onChange={() => setSoundEnabled(!soundEnabled)} />
-        <label className="labelClass">Sound</label>
+        <label className="labelClass mr-1.5">Sound</label>
         <select value={sound} onChange={(e) => setSound(e.target.value)} className="ml-1 mr-1 h-[22px] rounded-[5px] focus:outline">
           {SOUNDS.map(value => <option value={value} key={value}>{value}</option>)}
         </select>
@@ -211,7 +211,6 @@ const InputField = memo(({ effects, idx, task, tasks, setTasks, textOutline }: {
       currentRow = Math.floor(mirrorRef.current.clientHeight
         / parseFloat(window.getComputedStyle(mirrorRef.current).lineHeight!)) - 1;
     }
-    console.debug(currentRow, Math.floor(target.clientHeight / parseFloat(window.getComputedStyle(target).lineHeight!)));
 
     if (e.key == "Enter") {
       e.preventDefault();
@@ -231,14 +230,23 @@ const InputField = memo(({ effects, idx, task, tasks, setTasks, textOutline }: {
       let tmpTasks = tasks;
       tmpTasks.splice(idx, 1);
       setTasks(tmpTasks);
+    } else if (e.key === "ArrowLeft" && target.selectionStart === 0) {
+      (target.parentElement!.previousElementSibling?.children[1] as HTMLTextAreaElement)?.focus();
+      const activeElement = (document.activeElement as HTMLTextAreaElement);
+      const length = activeElement.value.length;
+      setTimeout(() => activeElement.setSelectionRange(length, length), 0);
+    } else if (e.key === "ArrowRight" && target.selectionEnd === target.value.length) {
+      (target.parentElement!.nextElementSibling?.children[1] as HTMLTextAreaElement)?.focus();
+      const activeElement = (document.activeElement as HTMLTextAreaElement);
+      setTimeout(() => activeElement.setSelectionRange(0, 0), 0);
     } else if (e.key === "ArrowUp" && currentRow <= 0) {
       e.preventDefault();
       (target.parentElement!.previousElementSibling?.children[1] as HTMLTextAreaElement)?.focus();
-      (document.activeElement as HTMLTextAreaElement).selectionStart = 0;
+      (document.activeElement as HTMLTextAreaElement).setSelectionRange(0, 0);
     } else if (e.key === "ArrowDown" && Math.max(0, currentRow) >= Math.floor(target.clientHeight / parseFloat(window.getComputedStyle(target).lineHeight!)) - 1) {
       e.preventDefault();
       (target.parentElement!.nextElementSibling?.children[1] as HTMLTextAreaElement)?.focus();
-      (document.activeElement as HTMLTextAreaElement).selectionStart = 0;
+      (document.activeElement as HTMLTextAreaElement).setSelectionRange(0, 0);
     }
   }, [tasks, setTasks]);
 
@@ -404,7 +412,7 @@ const Content = (
     // Calculate necessary height of window to display full content.
     let header = headerRef.current!;
     let content = contentRef.current!;
-    let height = header.offsetHeight + content.offsetHeight;
+    let height = header.offsetHeight + content.offsetHeight + 10;
     let width = window.outerWidth;
     // Resize window to necessary height.
     window.resizeTo(width, height);
@@ -418,7 +426,7 @@ const Content = (
         })}
       </ul>
       <div className="flex w-full">
-        <div className="resizer bottom-[-32px] right-[-32px] size-14 z-[2] fixed rotate-45 transition-shadow duration-[400ms]" onDoubleClick={handleResizer}></div>
+        <div className="resizer bottom-[-32px] right-[-32px] size-14 z-[2] fixed rotate-45 transition-shadow duration-[400ms]" onClick={handleResizer}></div>
       </div>
     </div>
   );
