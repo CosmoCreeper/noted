@@ -71,16 +71,22 @@ const Header = forwardRef<HTMLDivElement, {onColorChange: () => void}>(({onColor
 });
 
 const CHANGELOG = [
-  "Fixed text outline rounded corners.",
-  "Added directory button for custom sounds folder."
+  "Remapped color system.",
+  "Enhanced task navigation.",
+  "Increased bottom margin for contents page.",
+  "Small windows can see full changelog.",
+  "Redesigned backspace and delete functionality.",
+  "Reduced redundancies.",
+  "Text Outline is now More Line Space without outline.",
+  "Thickness adjustment for header."
 ];
 
 const Changes = () => {
   return (
-    <div>
+    <div className="mb-10">
       <h3 className="settings-header">Changelog</h3>
       <ul>
-        {CHANGELOG.map(change => <li className="ml-9 text-left" key={change}>+ {change}</li>)}
+        {CHANGELOG.map(change => <li key={change} className="ml-9 text-left">+ {change}</li>)}
       </ul>
     </div>
   );
@@ -137,12 +143,12 @@ const Settings = ({
       </div>
       <div className="setting" id="outlinecon">
         <input type="checkbox" checked={textOutline} onChange={() => setTextOutline(!textOutline)} />
-        <label className="labelClass">Text Outline</label>
+        <label className="labelClass">More Line Space</label>
       </div>
       <Changes />
       <div className="fixed flex justify-center w-full m-0 bottom-0">
         <div className="ui pt-0.5 w-[140px] px-1 rounded-t-[5px] z-[2] !text-black shadow-[rgba(100,100,111,0.2)_0px_7px_29px_0px]">
-          <strong>Version:</strong> 1.3.2
+          <strong>Version:</strong> 1.3.3-b
         </div>
       </div>
     </div>
@@ -178,6 +184,7 @@ const InputField = memo(({ effects, idx, task, tasks, setTasks, textOutline }: {
   const handleTaskInput = useCallback((e: React.KeyboardEvent<HTMLTextAreaElement>, idx: number) => {
     let target = e.target as HTMLTextAreaElement;
     let currentRow = 0;
+    const atStart = (document.activeElement as HTMLTextAreaElement)?.selectionEnd === 0;
     
     // Mirror the textarea to get the current row
     if (mirrorRef.current) {
@@ -217,31 +224,41 @@ const InputField = memo(({ effects, idx, task, tasks, setTasks, textOutline }: {
 
     if (e.key == "Enter") {
       e.preventDefault();
-      setTasks([...tasks.slice(0, idx), {name: `${target.value.substring(0, target.selectionEnd)}`, done: (target.previousElementSibling as HTMLInputElement).checked}, {name: `${target.value.substring(target.selectionEnd)}`, done: false}, ...tasks.slice(idx + 1)]);
-      setNewInputIdx(idx + 1);
-    } else if (((e.target as HTMLTextAreaElement).value == "" && tasks.length > 1) && (e.key === "Backspace" || e.key === "Delete")) {
+      if (atStart && target.value !== "") {
+        setTasks([...tasks.slice(0, idx), {name: "", done: false}, {name: target.value, done: (target.previousElementSibling as HTMLInputElement).checked}, ...tasks.slice(idx + 1)])
+      } else {
+        setTasks([...tasks.slice(0, idx), {name: target.value.substring(0, target.selectionEnd), done: (target.previousElementSibling as HTMLInputElement).checked}, {name: target.value.substring(target.selectionEnd), done: false}, ...tasks.slice(idx + 1)]);
+      }
+      setNewInputIdx(atStart && target.value !== "" ? idx : idx + 1);
+    } else if (tasks.length > 1 && ((e.key === "Backspace" && atStart && idx !== 0) || 
+      (e.key === "Delete" && (document.activeElement as HTMLTextAreaElement).selectionStart === target.value.length && idx !== tasks.length - 1))) {
       e.preventDefault();
 
-      // Focus tasks.
-      if ((e.key === "Backspace" && idx > 0) || (e.key === "Delete" && idx >= tasks.length)) {
-        (target.parentElement!.previousElementSibling!.children[1] as HTMLTextAreaElement).focus();
-        document.execCommand("selectAll", false);
-        document.getSelection()?.collapseToEnd();
-      }
+      // Focus tasks, change the prev/next item contents, and delete tasks.
+      if ((e.key === "Backspace" && idx > 0) || (e.key === "Delete" && idx === tasks.length - 1)) {
+        const prevEl = target.parentElement!.previousElementSibling!;
+        const textArea = prevEl.children[1] as HTMLTextAreaElement;
 
-      // Remove task at this index
-      let tmpTasks = tasks;
-      tmpTasks.splice(idx, 1);
-      setTasks(tmpTasks);
+        textArea.focus();
+        const activeElement = document.activeElement as HTMLTextAreaElement;
+        const length = activeElement.value.length;
+        setTimeout(() => activeElement.setSelectionRange(length, length), 0);
+        setTasks([...tasks.slice(0, idx - 1), {name: textArea.value + target.value, done: (prevEl.children[0] as HTMLInputElement).checked}, ...tasks.splice(idx + 1)]);
+      } else if ((e.key === "Delete" && idx < tasks.length - 1) || (e.key === "Backspace" && idx === 0)) {
+        const nextEl = target.parentElement!.nextElementSibling!;
+        const textArea = nextEl.children[1] as HTMLTextAreaElement;
+
+        const activeElement = document.activeElement as HTMLTextAreaElement;
+        setTimeout(() => activeElement.setSelectionRange(0, 0), 0);
+        setTasks([...tasks.slice(0, idx), {name: target.value + textArea.value, done: task.done}, ...tasks.splice(idx + 2)]);
+      }
     } else if (e.key === "ArrowLeft" && target.selectionStart === 0) {
       (target.parentElement!.previousElementSibling?.children[1] as HTMLTextAreaElement)?.focus();
-      const activeElement = (document.activeElement as HTMLTextAreaElement);
-      const length = activeElement.value.length;
-      setTimeout(() => activeElement.setSelectionRange(length, length), 0);
+      const activeElement = document.activeElement as HTMLTextAreaElement;
+      setTimeout(() => activeElement.setSelectionRange(activeElement.value.length, activeElement.value.length), 0);
     } else if (e.key === "ArrowRight" && target.selectionEnd === target.value.length) {
       (target.parentElement!.nextElementSibling?.children[1] as HTMLTextAreaElement)?.focus();
-      const activeElement = (document.activeElement as HTMLTextAreaElement);
-      setTimeout(() => activeElement.setSelectionRange(0, 0), 0);
+      setTimeout(() => (document.activeElement as HTMLTextAreaElement).setSelectionRange(0, 0), 0);
     } else if (e.key === "ArrowUp" && currentRow <= 0) {
       e.preventDefault();
       (target.parentElement!.previousElementSibling?.children[1] as HTMLTextAreaElement)?.focus();
@@ -272,7 +289,7 @@ const InputField = memo(({ effects, idx, task, tasks, setTasks, textOutline }: {
         ref={textareaRef}
         className={`outline-none bg-transparent resize-none ml-[7px] inline font-normal break-words transition w-full ${task.done ? ' line-through italic' : ''} ` +
                    `${textOutline ? 
-                    'hover:border-opacity-20 min-h-8 focus:border-black focus:border-opacity-20 border-opacity-20 border-transparent hover:border-gray-500 border-2 p-1 rounded-[5px]'
+                    'min-h-7 mt-2'
                      : 'border-none leading-5 mt-px'}`}
         rows={1}
         onChange={(e) => handleOnChange(e.target, idx)}
