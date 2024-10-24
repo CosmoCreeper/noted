@@ -1,8 +1,11 @@
 # Noted!
 A to-do list solution built with React and Electron. Designed with customization in mind.
 
+### ANDROID RELEASE!
+The release is currently unavailable, but we can confirm there is an official Android release almost in completion.
+
 ### Powers:
-- A desktop application with to-do list powers. (Currently Windows only.)
+- A desktop application with to-do list powers. (Currently Windows and Android only.)
 - Multiple color schemes to fit your desktop.
 - Multiple customization choices to create your own interpretation of the app.
 - A sleek and easy-to-use interface designed to be user-friendly.
