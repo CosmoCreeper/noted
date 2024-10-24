@@ -18,3 +18,4 @@ A to-do list solution built with React and Electron. Designed with customization
 ###### Data will be saved when transferring between versions.
 __________________________\
 **Latest version:** v1.3.2
+**Latest beta:** v1.3.3b
