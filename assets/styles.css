@@ -1,0 +1,31 @@
+@import url('https://fonts.googleapis.com/css2?family=Afacad+Flux:wght@100..1000&display=swap');
+
+body {
+    background-color: white;
+    color: black;
+    font-family: 'Afacad Flux';
+}
+
+h1, h3, p {
+    text-align: center;
+}
+
+::selection {
+    background-color: lightgrey;
+    color: black;
+}
+
+h1 {
+    background-color: lightgrey;
+    border-radius: 5px;
+    padding: 10px 5px 10px 5px;
+    user-select: none;
+    text-shadow: 5px 5px 15px black;
+}
+
+div {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+}
