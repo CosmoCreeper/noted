@@ -10,7 +10,8 @@ The release is currently unavailable, but we can confirm there is an official An
 We now have Linux installers (.deb, .AppImage, .snap) available in new beta version (v1.3.3b) (Boot on Startup and App Icon do not work for Linux).
 
 ### 📄 Website (🛠️)
-We are working on a website that will be hosted through GitHub pages. We expect to release this website by Nov. 15th (Possibly earlier).
+We are working on a website that will be hosted through GitHub pages.\
+https://cosmocreeper.github.io/noted
 
 ### 🔥 Powers:
 - A desktop application with to-do list powers. (Currently Windows, Linux, and Android only.)
