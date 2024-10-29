@@ -1,0 +1,45 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
+
+/* Overarching Elements */
+* {
+  @apply transition-colors ease-in duration-500;
+}
+
+/* Header Elements */
+header {
+  -webkit-app-region: drag;
+}
+
+#day, #close-btn, #color-con {
+  -webkit-app-region: no-drag;
+}
+
+/* Settings Tab Elements */
+.settings-header {
+  @apply pt-[17px] mb-1.5 underline font-bold text-[17px];
+}
+
+.setting {
+  @apply ml-5 text-[15px] p-[3px] flex;
+}
+
+.setting label {
+  @apply ml-2;
+}
+
+input[type="checkbox"] {
+  @apply w-[16px] ml-[8px] mt-[3px] h-4;
+}
+
+textarea {
+  content: attr(data-replicated-value) " ";
+}
+
+/* Hide Scrollbar */
+::-webkit-scrollbar {
+  @apply hidden;
+}
