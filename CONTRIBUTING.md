@@ -1,21 +1,5 @@
-Please use this template for pull requests:
+# Contributing
+We welcome all contributing and encourage it. Please follow our standards in order to maintain a clean and conscise system for contributing.
 
-```markdown
-### ❌ Problem
-Describe the problem.
-
-### 💡 Solution
-Describe your solution.
-
-### 📷 Screenshots
-Add screenshots if applicable.
-
-### 🤔 Logic & How It Works
-Describe your logic and how the code works.
-
-### ✅ Self-Review
-What you reviewed yourself.
-
-### 📁 Other
-Add more content if applicable.
-```
+Guidelines (WIP):
+1. Please contribute to the highest priority problems first. Issues take priority over features and requests. Tags may be used to communicate high priorities.
