@@ -1,5 +1,10 @@
 @import url('https://fonts.googleapis.com/css2?family=Afacad+Flux:wght@100..1000&display=swap');
 
+@font-face {
+    font-family: 'captcha';
+    src: url('./captcha.ttf');
+}
+
 body {
     background-color: white;
     color: black;
@@ -15,7 +20,7 @@ h1, h3, p {
     color: black;
 }
 
-h1 {
+.cons {
     background-color: lightgrey;
     border-radius: 5px;
     padding: 10px 5px 10px 5px;
@@ -28,4 +33,66 @@ div {
     left: 50%;
     top: 50%;
     transform: translate(-50%, -50%);
+}
+
+input[type="text"] {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    outline: none;
+    width: 70%;
+    bottom: 20px;
+    padding: 2px;
+    font-family: 'Lucida Sans';
+}
+
+.captcha-font {
+    font-family: 'Captcha';
+}
+
+.captcha-title {
+    user-select: none;
+    background-color: lightgray;
+    border-radius: 10px;
+    box-shadow: 0 8px 30px 3px black;
+    text-shadow: 5px 5px 15px black;
+    width: 125px;
+}
+
+.hidden {
+    display: none;
+}
+
+#spinner {
+    border: 16px solid #f3f3f3;
+    border-top: 16px solid #3498db;
+    height: 50px;
+    width: 50px;
+    border-radius: 50%;
+    animation: 3s ease-in infinite spinner-rotate;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    translate: -50% -50%;
+}
+
+@keyframes spinner-rotate {
+    0% { transform: rotate(0); }
+    100% { transform: rotate(360deg); }
+}
+
+#spinner-checkbox {
+    appearance: none;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    border-radius: 50%;
+    background-color: white;
+    width: 40px;
+    height: 40px;
+}
+
+#spinner-checkbox:checked {
+    background-color: blue;
 }
