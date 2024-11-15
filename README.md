@@ -1,6 +1,8 @@
 # ✅ Noted!
 A to-do list solution built with React and Electron. Designed with customization in mind.
 
+**NEW:** You can now use Noted online with saved data (stashed in localstorage). However, the web version does not have all the features, including, boot on startup, the resizer, sounds, and will not be updated but every few versions. Visit [the GitHub Pages website.](https://cosmocreeper.github.io/noted-online)
+
  To-Do List                |          Settings
 :-------------------------:|:-------------------------:
 <img style="display: inline;" width="200" height="236.39" src="https://raw.githubusercontent.com/CosmoCreeper/noted/refs/heads/master/assets/NotedContents.png"/>  |  <img style="display: inline;" width="200" height="236.39" src="https://raw.githubusercontent.com/CosmoCreeper/noted/refs/heads/master/assets/NotedSettings.png"/>
@@ -9,8 +11,8 @@ A to-do list solution built with React and Electron. Designed with customization
 The release is currently unavailable, but we can confirm there is an official Android release in the works.\
 We now have Linux installers (.deb, .AppImage, .snap) available in new beta version (v1.3.3b) (Boot on Startup and App Icon do not work for Linux).
 
-### 📄 Website (🛠️)
-We are working on a website that will be hosted through GitHub pages.\
+### 📄 Website
+We have officially finished the new Noted website as of today. (Nov. 15th, 2024)\
 https://cosmocreeper.github.io/noted
 
 ### 🔥 Powers:
