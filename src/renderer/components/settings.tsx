@@ -80,7 +80,7 @@ const Settings = ({
           {SOUNDS.map(value => <option value={value} key={value}>{value}</option>)}
         </select>
         <input type="text" 
-          className={`${sound === "Custom" ? "" : "hidden"} h-[22px] text-xs ml-0.5 mb-0.5 w-[21%] pl-1 focus:outline rounded-[5px]`}
+          className={`${sound === "Custom" ? "" : "hidden"} h-[22px] text-xs ml-2 w-[21%] pl-1 focus:outline rounded-[5px]`}
           value={customSound} onChange={(e) => setCustomSound(e.target.value)} spellCheck="false" />
         <a className={`${sound === "Custom" ? "" : "hidden"} ml-1 mt-[2px]`} onClick={() => openFolder()}>
           <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor" viewBox="0 0 16 16">
