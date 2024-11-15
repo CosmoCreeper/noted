@@ -3,28 +3,28 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Noted!</title>
-    <link href="./assets/styles.css" rel="stylesheet"/>
+    <title>Noted</title>
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <div id="spinner" class="hidden"></div>
-    <input id="spinner-checkbox" type="checkbox" class="hidden"/>
+    <header>
+        <h1>Noted!</h1>
+        <div class="links">
+            <a onclick="navigate(0)" href="#">Home</a>
+            <a onclick="navigate(1)" href="#">About</a>
+            <a onclick="navigate(5)" href="#">Demo</a>
+            <a onclick="navigate(6)" href="#">Downloads</a>
+        </div>
+    </header>
 
-    <div id="home">
-        <h1 class="cons">IN CONSTRUCTION...</h1>
-        <p>We are currently working on this project and do not expect to <br> complete it until the following date:</p>
-        <h3>Nov. 15th</h3>
-    </div>
-
-    <div id="captcha" class="hidden">
-        <h1 class="captcha-title">Captcha</h1>
-        <div class="captcha-box">
-            <p class="captcha-font"></p>
+    <div class="acrylic">
+        <span id="scroll" class="acrylic" onclick="scrollEvent({deltaY: 1})">Click to Scroll</span>
+        <div id="content">
+            <h2>To-do lists. <span class="acrylic">Reimagined.</span></h2>
+            <p>There is a to-do list for everything. <br> You just have to find it.</p>
         </div>
     </div>
 
-    <input type="text" onkeydown="checkInput(event)" placeholder="Enter your security key... (e.g., 8130)"/>
-
-    <script src="./assets/script.js"></script>
+    <script src="script.js"></script>
 </body>
 </html>

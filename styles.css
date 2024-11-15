@@ -1,0 +1,127 @@
+@import url('https://fonts.googleapis.com/css2?family=Lexend:wght@100..900&family=Roboto+Mono:ital,wght@0,100..700;1,100..700&display=swap');
+
+body {
+    margin: 0;
+    background: radial-gradient(circle at 24.1% 68.8%, rgb(50, 50, 50) 0%, rgb(0, 0, 0) 99.4%);
+    color: white;
+    font-family: "Roboto Mono";
+    user-select: none;
+    text-align: center;
+    overflow: hidden;
+}
+
+header {
+    position: sticky;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 80px;
+    background-color: black;
+    display: grid;
+    grid-template-columns: 50vw 50vw;
+}
+
+header h1 {
+    text-align: left;
+    margin: 20px 0 0 40px;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: "Lexend";
+}
+
+a {
+    color: white;
+    text-decoration-color: transparent;
+    text-decoration-thickness: 3px;
+    transition: text-decoration-color 200ms ease;
+}
+
+a:hover {
+    text-decoration-color: white;
+}
+
+header div {
+    font-size: 20px;
+    margin-left: 30%;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 65vw;
+    text-align: right;
+}
+
+header a {
+    margin: 10px;
+    color: white;
+}
+
+.acrylic {
+    background: rgba(255, 255, 255, 0.2);
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(5px);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    width: 100vw;
+    z-index: -1;
+}
+
+div.acrylic {
+    height: calc(100vh - 79px);
+    border-left: 0;
+    border-right: 0;
+    border-bottom: 0;
+}
+
+h2 {
+    color: lightgray;
+    text-shadow: 0 0 1px black;
+}
+
+p {
+    color: rgb(206, 206, 206);
+}
+
+.lexend {
+    font-family: "Lexend";
+}
+
+.mono {
+    font-family: "Roboto Mono";
+}
+
+span.acrylic {
+    background-image: url("./assets/gradient.jpg");
+    background-position: center;
+    padding: 2px 5px;
+    border-radius: 10px;
+}
+
+p span.acrylic {
+    border-radius: 5px;
+}
+
+span.acrylic.badge {
+    border-radius: 20px;
+}
+
+#content {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    height: auto;
+    width: 100%;
+}
+
+#scroll {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    bottom: 15px;
+    width: auto;
+    cursor: pointer;
+}
+
+#scroll:hover {
+    box-shadow: 0 0 10px 0 black;
+}
