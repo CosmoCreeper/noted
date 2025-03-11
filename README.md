@@ -13,7 +13,7 @@ The release is currently unavailable, but we can confirm there is an official An
 We now have Linux installers (.deb, .AppImage, .snap) available in new beta version (v1.3.3b) (Boot on Startup and App Icon do not work for Linux).
 
 ### 📄 Website
-We have officially finished the new Noted website as of today. (Nov. 15th, 2024)\
+The new Noted site is being released soon, as the old one is not very intuitive.\
 https://cosmocreeper.github.io/noted
 
 ### 🔥 Powers:
@@ -29,6 +29,9 @@ https://cosmocreeper.github.io/noted
 - Text formatting.
 - Redesigned custom sounds system to be user-friendly.
 - And more...
+
+### 🔐 Security and Privacy
+We value your security and privacy, and that's why we have made the code open-source and never to require internet. (although it may be optional in the future for special features.)
 
 ###### Data will be saved when transferring between versions.
 __________________________\
