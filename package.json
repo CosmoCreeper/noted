@@ -1,4 +1,5 @@
 {
+  "version": "1.3.3",
   "description": "A task manager",
   "keywords": [
     "electron",
@@ -11,13 +12,13 @@
     "hot",
     "reload"
   ],
-  "homepage": "https://github.com/electron-react-boilerplate/electron-react-boilerplate#readme",
+  "homepage": "https://github.com/cosmocreeper/noted#readme",
   "bugs": {
-    "url": "https://github.com/electron-react-boilerplate/electron-react-boilerplate/issues"
+    "url": "https://github.com/cosmocreeper/noted/issues"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/electron-react-boilerplate/electron-react-boilerplate.git"
+    "url": "git+https://github.com/cosmocreeper/noted.git"
   },
   "license": "MIT",
   "author": {

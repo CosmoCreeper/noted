@@ -7,7 +7,7 @@ module.exports = {
     extend: {},
     fontFamily: {
       'body': 'Roboto',
-      'header': ["Franklin Gothic", "Arial Narrow", 'Arial', 'sans-serif'],
+      'header': ["Franklin Gothic", "FGM", "Arial Narrow", 'Arial', 'sans-serif'],
     },
   },
   plugins: [],

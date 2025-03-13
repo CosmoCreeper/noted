@@ -6,7 +6,8 @@
 
 /* Yellow */
 .yellow,
-.yellow .bg-ui:hover {
+.yellow .bg-ui:hover,
+.yellow .bga-ui {
   @apply !bg-[#fff7d1];
 }
 
@@ -21,7 +22,8 @@
 
 /* Green */
 .green,
-.green .bg-ui:hover {
+.green .bg-ui:hover,
+.green .bga-ui {
   @apply !bg-[#e4f9e0];
 }
 
@@ -32,7 +34,8 @@
 
 /* Pink */
 .pink,
-.pink .bg-ui:hover {
+.pink .bg-ui:hover,
+.pink .bga-ui {
   @apply !bg-[#ffe4f1];
 }
 
@@ -43,7 +46,8 @@
 
 /* Purple */
 .purple,
-.purple .bg-ui:hover {
+.purple .bg-ui:hover,
+.purple .bga-ui {
   @apply !bg-[#f2e6ff] ;
 }
 
@@ -54,7 +58,8 @@
 
 /* Blue */
 .blue,
-.blue .bg-ui:hover {
+.blue .bg-ui:hover,
+.blue .bga-ui {
   @apply !bg-[#e2f1ff];
 }
 

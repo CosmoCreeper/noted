@@ -143,7 +143,7 @@ const InputField = memo(({ effects, idx, task, tasks, setTasks, moreLineSpace }:
       }} />
       <textarea
         ref={textareaRef}
-        className={`outline-none bg-transparent resize-none ml-[7px] inline font-normal break-words transition w-full ${task.done ? ' line-through italic' : ''} pr-3 ` +
+        className={`[content:_attr(data-replicated-value)_" "] outline-none bg-transparent resize-none ml-[7px] inline font-normal break-words transition w-full ${task.done ? ' line-through italic' : ''} pr-3 ` +
                    `${moreLineSpace ? 
                     'min-h-7 mt-2'
                      : 'border-none leading-5 mt-px'}`}
@@ -302,7 +302,7 @@ const Content = (
         })}
       </ul>
       <div className="flex w-full">
-        <div className="resizer bottom-[-32px] right-[-32px] size-14 z-[2] fixed rotate-45 transition-shadow duration-[400ms]" onClick={handleResizer}></div>
+        <div className="resizer bottom-[-32px] right-[-32px] size-14 z-[2] fixed rotate-45 transition-shadow duration-[400ms] bga-ui" onClick={handleResizer}></div>
       </div>
     </div>
   );

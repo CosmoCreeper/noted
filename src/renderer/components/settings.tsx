@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 
 type SettingsProps = {
   bootOnStartup: boolean;
@@ -30,7 +30,9 @@ const CHANGELOG = [
   "Right padding added to content and settings pages.",
   "Structured components into separate files.",
   "Resizer is now single-click.",
-  "Fixed header color not transitioning correctly."
+  "Fixed header color not transitioning correctly.",
+  "Fixed sound set to custom adds padding below setting.",
+  "Fixed glitchy check sound."
 ];
 
 const Changes = () => {
@@ -54,9 +56,17 @@ const Settings = ({
     dayReset, setDayReset, bootOnStartup, setBootOnStartup, soundEnabled, setSoundEnabled, sound, setSound, customSound,
      setCustomSound, confettiEnabled, setConfettiEnabled, moreLineSpace, setMoreLineSpace}: SettingsProps) => {
 
+  const [version, setVersion] = useState('');
+
   useEffect(() => {
     window.electron.ipcRenderer.sendMessage("updateboot", bootOnStartup);
   }, [bootOnStartup]);
+
+  useEffect(() => {
+    window.electron.ipcRenderer.invoke('getversion').then((version: string) => {
+      setVersion(version);
+    });
+  }, []);
 
   const openFolder = () => {
     window.electron.ipcRenderer.sendMessage("openfolder");
@@ -99,12 +109,13 @@ const Settings = ({
       </div>
       <Changes />
       <div className="fixed flex justify-center w-full m-0 bottom-0">
-        <div className="ui pt-0.5 w-[140px] px-1 rounded-t-[5px] z-[2] !text-black shadow-[rgba(100,100,111,0.2)_0px_7px_20px_10px] border-solid border-black border-[1px]">
-          <strong>Version:</strong> 1.3.3b
+        <div className="ui pt-0.5 w-[140px] px-1 rounded-t-[5px] z-[2] !text-black shadow-[1px_1px_39px_29px_rgba(0,_0,_0,_0.15)] border-solid border-[rgba(0,_0,_0,_0.4)] border-[0.5px]">
+          <strong>Version:</strong> {version}
         </div>
       </div>
     </div>
   );
 }
+
 
 export default Settings;
