@@ -1,6 +1,6 @@
 {
     "name": "Noted",
-    "version": "1.3.3",
-    "url": "https://www.github.com/cosmocreeper/noted/releases/download/1.3.3/windows-install.exe",
+    "version": "1.3.3-beta",
+    "url": "https://github.com/CosmoCreeper/noted/releases/download/v1.3.3a-beta/Noted.Setup.1.3.3-beta.exe",
     "autoport": true
 }
