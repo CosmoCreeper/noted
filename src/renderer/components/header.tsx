@@ -18,7 +18,7 @@ const Header = forwardRef<HTMLDivElement, {onColorChange: () => void}>(({onColor
   return (
     <header className="[-webkit-app-region:_drag] fixed font-header text-xl flex h-10 w-full items-center justify-center z-[2] top-0" ref={ref}>
       <div 
-       className="fixed top-1 left-1 pl-2.5 pt-[10px] bg-ui size-8 hover:cursor-pointer duration-200 btn rounded-[5px] [&>*]:hover:opacity-80 [&>*]:hover:!border-slate-700" 
+       className="[&>*]:hover:scale-95 fixed top-1 left-1 pl-2.5 pt-[10px] bg-ui size-8 hover:cursor-pointer duration-200 btn rounded-[5px] [&>*]:hover:opacity-80 [&>*]:hover:!border-slate-700" 
        onClick={onColorChange} id="color-con">
         <div 
          className="transition size-5 rounded-[30px] border-[1.5px] fixed top-[10px] left-[10px] bg-white border-slate-300"
@@ -30,8 +30,8 @@ const Header = forwardRef<HTMLDivElement, {onColorChange: () => void}>(({onColor
         <div className="fixed left-1/2 -translate-x-1/2 transition-all">{getWeekDay(2)}</div>
       </div>
       <div 
-       className="hover:cursor-pointer hover:!text-slate-700 bg-ui fixed right-1 top-1 size-8 pl-[6.5px] pt-[5px] duration-200 select-none text-2xl btn leading-[22px] rounded-[5px] !border-none"
-       id="close-btn" onClick={quitApp}>&#x2715;</div>
+       className="bg-ui transition-all duration-200 [&>*]:hover:scale-95 hover:cursor-pointer hover:!text-slate-700 fixed right-1 top-1 size-8 pl-[6.5px] pt-[5px] select-none text-2xl btn leading-[22px] rounded-[5px] !border-none"
+       id="close-btn" onClick={quitApp}><div>&#x2715;</div></div>
     </header>
   );
 });

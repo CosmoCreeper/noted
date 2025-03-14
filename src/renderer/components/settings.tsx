@@ -1,4 +1,41 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
+
+type CircularProgressBarProps = {
+  progress: number,
+  radius: number
+}
+
+const CircularProgressBar = ({ progress, radius }: CircularProgressBarProps) => {
+  const stroke = 3;
+  const normalizedRadius = radius - stroke / 2;
+  const circumference = normalizedRadius * 2 * Math.PI;
+  const strokeDashoffset = circumference - (progress / 100) * circumference;
+
+  return (
+    <svg height={radius * 2} width={radius * 2} className="absolute left-0 top-0 w-full h-full">
+      {/* Background circle */}
+      <circle
+        stroke="black"
+        fill="transparent"
+        strokeWidth={stroke-2}
+        r={normalizedRadius}
+        cx={radius}
+        cy={radius}
+      />
+      {/* Progress circle */}
+      <circle
+        stroke="rgb(100,149,237)"
+        fill="transparent"
+        strokeWidth={stroke}
+        strokeDasharray={`${circumference} ${circumference}`}
+        style={{ strokeDashoffset, transition: 'stroke-dashoffset 0.35s' }}
+        r={normalizedRadius}
+        cx={radius}
+        cy={radius}
+      />
+    </svg>
+  );
+};
 
 type SettingsProps = {
   bootOnStartup: boolean;
@@ -57,8 +94,11 @@ const Settings = ({
      setCustomSound, confettiEnabled, setConfettiEnabled, moreLineSpace, setMoreLineSpace}: SettingsProps) => {
 
   const [version, setVersion] = useState('');
-  const [releaseData, setReleaseData] = useState({version: "", url: "", autoport: true});
+  const [releaseData, setReleaseData] = useState({version: version, url: "", autoport: true});
   const [updating, setUpdating] = useState(false);
+  const [updateProgress, setUpdateProgress] = useState(0);
+  const parentRef = useRef<HTMLDivElement>(null);
+  const [radius, setRadius] = useState(0);
 
   useEffect(() => {
     window.electron.ipcRenderer.sendMessage("updateboot", bootOnStartup);
@@ -75,6 +115,13 @@ const Settings = ({
     })();
   }, []);
 
+  useEffect(() => {
+    if (parentRef.current) {
+      const { width, height } = parentRef.current.getBoundingClientRect();
+      setRadius(Math.min(width, height) / 2);
+    }
+  }, [updating]);
+
   const openFolder = () => {
     window.electron.ipcRenderer.sendMessage("openfolder");
   };
@@ -82,6 +129,9 @@ const Settings = ({
   const update = () => {
     setUpdating(true);
     window.electron.ipcRenderer.sendMessage("download", releaseData);
+    for (let i = 1; i < 101; i++) {
+      setTimeout(() => setUpdateProgress(i), i * 100);
+    }
   }
 
   return (
@@ -123,13 +173,13 @@ const Settings = ({
         <Changes />
         <div className="fixed flex justify-center w-full m-0 bottom-0">
           {
-            <div onClick={() => releaseData.version !== version ? update() : null} className={`${releaseData.version !== version ? `cursor-pointer hover:[text-shadow:3px_3px_2px_rgba(0,0,0,0.2)]` : ``} ui !text-black border-[rgba(0,_0,_0,_0.4)] transition-all duration-200 pt-0.5 w-[140px] px-1 rounded-t-[5px] z-[2] shadow-[1px_1px_39px_29px_rgba(0,_0,_0,_0.15)] border-solid border-[0.5px]`}>
+            <div onClick={() => releaseData.version === version ? null : update()} className={`${releaseData.version === version ? `` : `cursor-pointer [&>*]:hover:[font-size:95%]`} ui !text-black border-[rgba(0,_0,_0,_0.4)] transition-all duration-200 pt-0.5 w-[140px] px-1 rounded-t-[5px] z-[2] shadow-[1px_1px_15px_10px_rgba(0,_0,_0,_0.1)] border-solid border-[0.5px]`}>
               {
-                releaseData.version !== version ? 
-                <strong>Update</strong> : 
+                releaseData.version === version ? 
                 <>
-                  <strong>Version:</strong> {version}
-                </>
+                  <strong>Version:</strong> {version.replace(/-|eta/g,"")}
+                </> :
+                <strong className="transition-all duration-200">Update</strong>
               }
             </div>
           }
@@ -137,7 +187,8 @@ const Settings = ({
       </div>
       {updating ? 
         <div className="fixed w-screen h-screen bottom-0 left-0 z-[80] backdrop-blur-md flex items-center justify-center font-header">
-          <div className="justify-center items-center flex border-solid border border-[rgba(0,0,0,0.9)] rounded-[50%] p-5 w-[min(50vw,50vh)] h-[min(50vw,50vh)] select-none">
+          <div ref={parentRef} className="relative justify-center items-center flex rounded-full w-[min(50vw,50vh)] h-[min(50vw,50vh)] select-none">
+            {radius > 0 && <CircularProgressBar progress={updateProgress} radius={radius} />}
             <h1 className="animate-pulse text-md">updating...</h1>
           </div>
         </div>
