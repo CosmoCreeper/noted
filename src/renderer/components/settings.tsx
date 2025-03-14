@@ -57,6 +57,8 @@ const Settings = ({
      setCustomSound, confettiEnabled, setConfettiEnabled, moreLineSpace, setMoreLineSpace}: SettingsProps) => {
 
   const [version, setVersion] = useState('');
+  const [releaseData, setReleaseData] = useState({version: "", url: "", autoport: true});
+  const [updating, setUpdating] = useState(false);
 
   useEffect(() => {
     window.electron.ipcRenderer.sendMessage("updateboot", bootOnStartup);
@@ -66,54 +68,81 @@ const Settings = ({
     window.electron.ipcRenderer.invoke('getversion').then((version: string) => {
       setVersion(version);
     });
+    (async () => {
+      const response = await fetch("https://cosmocreeper.github.io/noted/releases.json");
+      const data = await response.json();
+      setReleaseData(data);
+    })();
   }, []);
 
   const openFolder = () => {
     window.electron.ipcRenderer.sendMessage("openfolder");
   };
 
+  const update = () => {
+    setUpdating(true);
+    window.electron.ipcRenderer.sendMessage("download", releaseData);
+  }
+
   return (
-    <div className="text-center select-none">
-      <h3 className="settings-header">Options</h3>
-      <div id="bootcon" className="setting">
-        <input type="checkbox" checked={bootOnStartup} onChange={() => setBootOnStartup(!bootOnStartup)} />
-        <label id="boottext" className="labelClass">Boot On Startup</label>
-      </div>
-      <div id="dayresetcon" className="setting">
-        <input type="checkbox" checked={dayReset} onChange={() => setDayReset(!dayReset)} />
-        <label id="dayresettext" className="labelClass" key="resett">Reset Tasks Daily</label>
-      </div>
-      <div className="setting" id="checksoundcon">
-        <input type="checkbox" checked={soundEnabled} onChange={() => setSoundEnabled(!soundEnabled)} />
-        <label className="labelClass mr-1.5">Sound</label>
-        <select value={sound} onChange={(e) => setSound(e.target.value)} className="ml-1 mr-1 h-[22px] rounded-[5px] focus:outline">
-          {SOUNDS.map(value => <option value={value} key={value}>{value}</option>)}
-        </select>
-        <input type="text" 
-          className={`${sound === "Custom" ? "" : "hidden"} h-[22px] text-xs ml-2 w-[21%] pl-1 focus:outline rounded-[5px]`}
-          value={customSound} onChange={(e) => setCustomSound(e.target.value)} spellCheck="false" />
-        <a className={`${sound === "Custom" ? "" : "hidden"} ml-1 mt-[2px]`} onClick={() => openFolder()}>
-          <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor" viewBox="0 0 16 16">
-            <path d="M11 6.64a1 1 0 0 0-1.243-.97l-1 .25A1 1 0 0 0 8 6.89v4.306A2.6 2.6 0 0 0 7 11c-.5 0-.974.134-1.338.377-.36.24-.662.628-.662 1.123s.301.883.662 1.123c.364.243.839.377 1.338.377s.974-.134 1.338-.377c.36-.24.662-.628.662-1.123V8.89l2-.5z"/>
-            <path d="M14 14V4.5L9.5 0H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2M9.5 3A1.5 1.5 0 0 0 11 4.5h2V14a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h5.5z"/>
-          </svg>
-        </a>
-      </div>
-      <div className="setting" id="confetticon">
-        <input type="checkbox" checked={confettiEnabled} onChange={() => setConfettiEnabled(!confettiEnabled)} />
-        <label className="labelClass">Confetti</label>
-      </div>
-      <div className="setting" id="outlinecon">
-        <input type="checkbox" checked={moreLineSpace} onChange={() => setMoreLineSpace(!moreLineSpace)} />
-        <label className="labelClass">More Line Space</label>
-      </div>
-      <Changes />
-      <div className="fixed flex justify-center w-full m-0 bottom-0">
-        <div className="ui pt-0.5 w-[140px] px-1 rounded-t-[5px] z-[2] !text-black shadow-[1px_1px_39px_29px_rgba(0,_0,_0,_0.15)] border-solid border-[rgba(0,_0,_0,_0.4)] border-[0.5px]">
-          <strong>Version:</strong> {version}
+    <>
+      <div className="text-center select-none">
+        <h3 className="settings-header">Options</h3>
+        <div id="bootcon" className="setting">
+          <input type="checkbox" checked={bootOnStartup} onChange={() => setBootOnStartup(!bootOnStartup)} />
+          <label id="boottext" className="labelClass">Boot On Startup</label>
+        </div>
+        <div id="dayresetcon" className="setting">
+          <input type="checkbox" checked={dayReset} onChange={() => setDayReset(!dayReset)} />
+          <label id="dayresettext" className="labelClass" key="resett">Reset Tasks Daily</label>
+        </div>
+        <div className="setting" id="checksoundcon">
+          <input type="checkbox" checked={soundEnabled} onChange={() => setSoundEnabled(!soundEnabled)} />
+          <label className="labelClass mr-1.5">Sound</label>
+          <select value={sound} onChange={(e) => setSound(e.target.value)} className="ml-1 mr-1 h-[22px] rounded-[5px] focus:outline">
+            {SOUNDS.map(value => <option value={value} key={value}>{value}</option>)}
+          </select>
+          <input type="text" 
+            className={`${sound === "Custom" ? "" : "hidden"} h-[22px] text-xs ml-2 w-[21%] pl-1 focus:outline rounded-[5px]`}
+            value={customSound} onChange={(e) => setCustomSound(e.target.value)} spellCheck="false" />
+          <a className={`${sound === "Custom" ? "" : "hidden"} ml-1 mt-[2px]`} onClick={() => openFolder()}>
+            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor" viewBox="0 0 16 16">
+              <path d="M11 6.64a1 1 0 0 0-1.243-.97l-1 .25A1 1 0 0 0 8 6.89v4.306A2.6 2.6 0 0 0 7 11c-.5 0-.974.134-1.338.377-.36.24-.662.628-.662 1.123s.301.883.662 1.123c.364.243.839.377 1.338.377s.974-.134 1.338-.377c.36-.24.662-.628.662-1.123V8.89l2-.5z"/>
+              <path d="M14 14V4.5L9.5 0H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2M9.5 3A1.5 1.5 0 0 0 11 4.5h2V14a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h5.5z"/>
+            </svg>
+          </a>
+        </div>
+        <div className="setting" id="confetticon">
+          <input type="checkbox" checked={confettiEnabled} onChange={() => setConfettiEnabled(!confettiEnabled)} />
+          <label className="labelClass">Confetti</label>
+        </div>
+        <div className="setting" id="outlinecon">
+          <input type="checkbox" checked={moreLineSpace} onChange={() => setMoreLineSpace(!moreLineSpace)} />
+          <label className="labelClass">More Line Space</label>
+        </div>
+        <Changes />
+        <div className="fixed flex justify-center w-full m-0 bottom-0">
+          {
+            <div onClick={() => releaseData.version !== version ? update() : null} className={`${releaseData.version !== version ? `cursor-pointer hover:[text-shadow:3px_3px_2px_rgba(0,0,0,0.2)]` : ``} ui !text-black border-[rgba(0,_0,_0,_0.4)] transition-all duration-200 pt-0.5 w-[140px] px-1 rounded-t-[5px] z-[2] shadow-[1px_1px_39px_29px_rgba(0,_0,_0,_0.15)] border-solid border-[0.5px]`}>
+              {
+                releaseData.version !== version ? 
+                <strong>Update</strong> : 
+                <>
+                  <strong>Version:</strong> {version}
+                </>
+              }
+            </div>
+          }
         </div>
       </div>
-    </div>
+      {updating ? 
+        <div className="fixed w-screen h-screen bottom-0 left-0 z-[80] backdrop-blur-md flex items-center justify-center font-header">
+          <div className="justify-center items-center flex border-solid border border-[rgba(0,0,0,0.9)] rounded-[50%] p-5 w-[min(50vw,50vh)] h-[min(50vw,50vh)] select-none">
+            <h1 className="animate-pulse text-md">updating...</h1>
+          </div>
+        </div>
+       : null}
+    </>
   );
 }
 

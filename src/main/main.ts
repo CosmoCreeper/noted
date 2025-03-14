@@ -12,7 +12,9 @@ import path from 'path';
 import { app, BrowserWindow, shell, ipcMain, IpcMainEvent } from 'electron';
 import MenuBuilder from './menu';
 import { resolveHtmlPath } from './util';
+import { DownloaderHelper } from 'node-downloader-helper';
 import * as os from 'os';
+import * as child from 'child_process';
 
 let mainWindow: BrowserWindow | null = null;
 
@@ -34,6 +36,15 @@ ipcMain.on('ipc-example', async (event, arg) => {
 
 ipcMain.handle('getversion', () => app.getVersion());
 
+ipcMain.on('download', (event, releaseData) => {
+  const dl = new DownloaderHelper(releaseData.url, `${os.homedir()}\\Downloads`);
+  dl.start().then(() => {
+    const exeNameArr = releaseData.url.split("/");
+    let update: child.ChildProcess = child.spawn(`${os.homedir()}\\Downloads\\${exeNameArr[exeNameArr.length - 1]}`, {detached: true});
+    update.on('spawn', () => app.quit());
+  }).catch(err => console.error(err));
+});
+
 if (process.env.NODE_ENV === 'production') {
   const sourceMapSupport = require('source-map-support');
   sourceMapSupport.install();
@@ -43,7 +54,7 @@ const isDebug =
   process.env.NODE_ENV === 'development' || process.env.DEBUG_PROD === 'true';
 
 if (isDebug) {
-  require('electron-debug')();
+   require('electron-debug')();
 }
 
 const installExtensions = async () => {
