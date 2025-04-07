@@ -1,5 +1,5 @@
 # ✅ Noted!
-*It is time! v1.3.3 can be expected in the next few weeks*\
+*v1.3.3 has been released and will be improved soon!*\
 A to-do list solution built with React and Electron. Designed with customization in mind.
 
 **NEW:** You can now use Noted online with saved data (stashed in localstorage). However, the web version does not have all the features, including, boot on startup, the resizer, sounds, and will not be updated but every few versions. Visit [the GitHub Pages website.](https://cosmocreeper.github.io/noted-online)
