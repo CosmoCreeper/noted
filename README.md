@@ -23,9 +23,10 @@ https://cosmocreeper.github.io/noted
 - A sleek and easy-to-use interface designed to be user-friendly.
 - A to-do list system that rewards you with confetti as you check off tasks.
 - Two built-in presets with an optional custom preset for sounds.
+- An intuitive auto-updating feature.
 
 ### 🔄 Pending Power-Ups:
-- An all new color scheme and system.
+- ~~An all new color scheme and system.~~ (Just completed! See v1.3.3!)
 - Text formatting.
 - Redesigned custom sounds system to be user-friendly.
 - And more...
